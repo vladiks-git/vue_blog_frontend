@@ -1,0 +1,3 @@
+[submodule "blog_vue"]
+	path = blog_vue
+	url = https://github.com/vladiks-git/blog_vue.git
