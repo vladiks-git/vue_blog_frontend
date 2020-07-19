@@ -6,6 +6,7 @@
 
 <script>
     import Post from "./post";
+
     export default {
         name: "main-content",
         components: {Post}
