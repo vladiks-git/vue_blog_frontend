@@ -22,9 +22,9 @@ export default {
                     body: JSON.stringify(post)
                 })
                 const posts = await response.json()
-                ctx.commit('updatePosts', posts)
+                console.log(posts)
             } catch (e) {
-                console.log(e)
+                console.log('egwegeg', e)
             }
         },
 

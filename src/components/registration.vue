@@ -2,7 +2,7 @@
     <div class="div-reg">
         <div class="form-reg">
             <h2>Регистрация</h2>
-            <form>
+            <form @submit.prevent="registration">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
                     <input
@@ -19,6 +19,10 @@
                     <small
                             v-if="!$v.email.email"
                             class="invalid-feedback">This field should be an email.
+                    </small>
+                    <small
+                            v-if="!$v.email.uniqEmail"
+                            class="invalid-feedback">This email is already exists.
                     </small>
                 </div>
                 <div class="form-group">
@@ -57,6 +61,7 @@
 
 <script>
     import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+    import {mapActions} from 'vuex'
     export default {
         data(){
             return{
@@ -65,17 +70,37 @@
                 confirmPassword: ''
             }
         },
+        methods: {
+            ...mapActions(['addUser']),
+            registration(){
+                this.addUser({
+                    email: this.email,
+                    password: this.password
+                })
+            }
+        },
         validations: {
             email: {
                 required,
-                email
+                email,
+                async uniqEmail(newEmail){
+                    if(newEmail === '') return true
+                    const response = await fetch('http://localhost:3000/user/uniqEmail',{
+                        headers: {"Content-Type": "application/json"},
+                        method: 'POST',
+                        body: JSON.stringify({newEmail})
+                    })
+                    const res = await response.json()
+                    console.log(res.uniq)
+                    return res.uniq
+                }
             },
             password: {
                 minLength: minLength(6)
             },
             confirmPassword: {
                 sameAs: sameAs('password')
-            }
+            },
         }
     }
 </script>
