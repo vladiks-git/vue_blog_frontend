@@ -77,22 +77,24 @@
                     email: this.email,
                     password: this.password
                 })
+                this.$router.push('/login')
             }
         },
         validations: {
             email: {
                 required,
                 email,
-                async uniqEmail(newEmail){
-                    if(newEmail === '') return true
-                    const response = await fetch('http://localhost:3000/user/uniqEmail',{
-                        headers: {"Content-Type": "application/json"},
-                        method: 'POST',
-                        body: JSON.stringify({newEmail})
-                    })
-                    const res = await response.json()
-                    console.log(res.uniq)
-                    return res.uniq
+                async uniqEmail(newEmail, vm){
+                    if(newEmail !== '' && vm.$v.email.email) {
+                        const response = await fetch('http://localhost:3000/user/uniqEmail', {
+                            headers: {"Content-Type": "application/json"},
+                            method: 'POST',
+                            body: JSON.stringify({newEmail})
+                        })
+                        const res = await response.json()
+                        return res.uniq
+                    }
+                    return  true
                 }
             },
             password: {

@@ -5,6 +5,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{post.title}}</h5>
                     <p class="card-text">{{post.text}}</p>
+                    <p class="card-text">Автор - {{post.author}}</p>
                     <a href="#" class="btn btn-primary">Open</a>
                     <button type="submit" class="btn btn-danger" @click="deletePost(post.id)">Delete</button>
                 </div>

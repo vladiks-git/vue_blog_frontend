@@ -58,8 +58,10 @@
                 if (this.title.trim() && this.text.trim()) {
                     this.addPost({
                         title: this.title,
-                        text: this.text
+                        text: this.text,
+                        author: JSON.parse(localStorage.getItem('user')).email
                     })
+                    alert('Ваш пост был успешно добавлен!')
                     this.title = this.text = ''
                     this.$router.push('/')
                 }

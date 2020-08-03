@@ -21,10 +21,10 @@ export default {
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(post)
                 })
-                const posts = await response.json()
-                console.log(posts)
+                const res = await response.json()
+                console.log(res)
             } catch (e) {
-                console.log('egwegeg', e)
+                console.log(e)
             }
         },
 
@@ -52,13 +52,14 @@ export default {
 
 
     state: {
-        posts: []
+        posts: [],
     },
 
 
     getters: {
         getAllPosts(state) {
             return state.posts
-        }
+        },
+
     }
 }
